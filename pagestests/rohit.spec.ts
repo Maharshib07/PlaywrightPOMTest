@@ -26,5 +26,5 @@ test ('Radio Button Example', async ({page})=>{
     const rohitshettypageurl = "https://rahulshettyacademy.com/AutomationPractice/";
 
     await rohitshetty.navigate(rohitshettypageurl)
-    await rohitshetty.Radiochecks();  
+    await rohitshetty.Radiochecks();
 });

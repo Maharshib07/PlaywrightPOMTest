@@ -1,6 +1,8 @@
 import { test, expect, Locator } from "@playwright/test";
 import { webkit, chromium, firefox } from 'playwright';
+
 import RohitShetty from "../Pages/RohitShettypage";
+import Actions from "../Utilities/Actions"; 
   
 // const browser = await chromium.launch({headless: false, channel: 'chrome'});
 //     const newPage = await browser.newPage();
@@ -25,6 +27,7 @@ test ('Radio Button Example', async ({page})=>{
 
     const rohitshettypageurl = "https://rahulshettyacademy.com/AutomationPractice/";
 
-    await rohitshetty.navigate(rohitshettypageurl)
+    await rohitshetty.navigate(rohitshettypageurl);
     await rohitshetty.Radiochecks();
+    
 });

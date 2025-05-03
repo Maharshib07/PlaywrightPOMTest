@@ -1,22 +1,23 @@
 import { expect, Page } from "@playwright/test";
 
 export default class RohitShetty {
-    protected readonly page: Page;
+    private readonly page: Page;
 
     Radio1 = "input[value='radio1']"
     Radio2 = "input[value='radio2']"
     Radio3 = "input[value='radio3']"
     selectcountry = "#autocomplete:nth-of-type(1)";
 
-
-
+     //we can use public page:Page also
     constructor(page: Page) {
-
         this.page = page;
     }
 
     async navigate(url: string) {
         await this.page.goto(url);
+    }
+    async  navig(){
+        await this.page.goto("https://rahulshettyacademy.com/AutomationPractice/");
     }
 
     async entercountryname(countryname: string) {

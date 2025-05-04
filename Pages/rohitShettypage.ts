@@ -13,9 +13,16 @@ export default class RohitShetty {
 
     selectdropdown ="//select[@id='dropdown-class-example']";
 
+    chechkbox1 = "";
+    chechkbox2 = "";
+    chechkbox3 = "";
+
+
+
      //we can use public page:Page also
     constructor(page: Page) {
         this.page = page;
+        this.actions = new Actions(this.page);
     }
 
     async navigate(url: string) {

@@ -39,6 +39,6 @@ test('Dropdown Example', async ({ page }) => {
     const rohitshetty = new RohitShetty(newPage);
 
     await rohitshetty.navig();
-    await rohitshetty.dropdown('Option2','Option1',4);
+    await rohitshetty.dropdown('Option2','Option1',3);
 
 });

@@ -1,66 +1,69 @@
-import {Page, Locator} from '@playwright/test';
-export default class Actions{
+import { Page, Locator } from '@playwright/test';
+export default class Actions {
 
-constructor(private page:Page){
-    this.page=page;
-}
+    public actions = Actions;
 
-async iselementvisible(locator:Locator):Promise <boolean>{
-    return await locator.isVisible();
-}
+    constructor(public page: Page) {
+        this.page = page;
+        this.actions = Actions;
+    }
 
-async clickonelement(locator:Locator){
-    await locator.click();
-}
+    async iselementvisible(locator: Locator): Promise<boolean> {
+        return await locator.isVisible();
+    }
 
-async doubleclick(locator:Locator){
-    await locator.dblclick();
-}
+    async clickonelement(locator: Locator) {
+        await locator.click();
+    }
 
-async rightclick(locator:Locator){
-     await locator.click({button:'right'});
-}
+    async doubleclick(locator: Locator) {
+        await locator.dblclick();
+    }
 
-async typetext(locator:Locator, text:string){
-    await locator.fill(text);
-}
+    async rightclick(locator: Locator) {
+        await locator.click({ button: 'right' });
+    }
 
-async cleartext(locator:Locator){
-    await locator.fill('');
-}
+    async typetext(locator: Locator, text: string) {
+        await locator.fill(text);
+    }
 
-async Hover(locator:Locator){
-    await locator.hover();
-}
+    async cleartext(locator: Locator) {
+        await locator.fill('');
+    }
 
-async scrooltoview(locator:Locator){
-    await locator.scrollIntoViewIfNeeded();
-}
+    async Hover(locator: Locator) {
+        await locator.hover();
+    }
 
-async presskey(key:string){
-    await this.page.keyboard.press(key);
-}
+    async scrooltoview(locator: Locator) {
+        await locator.scrollIntoViewIfNeeded();
+    }
 
-async draganddrop(from:Locator,to:Locator){
- await from.dragTo(to);
-}
+    async presskey(key: string) {
+        await this.page.keyboard.press(key);
+    }
+
+    async draganddrop(from: Locator, to: Locator) {
+        await from.dragTo(to);
+    }
 
 
 
-async selectdropdownbyvalue(locator:Locator,value:string){
-    await locator.selectOption(value); //value
-}
+    async selectdropdownbyvalue(locator: Locator, value: string) {
+        await locator.selectOption(value); //value
+    }
 
-async selectdropdownbytext(locator:Locator,label:string){
-    await locator.selectOption(label);  //text
-}
+    async selectdropdownbytext(locator: Locator, label: string) {
+        await locator.selectOption(label);  //text
+    }
 
-async selectdropdownbyindex(locator:Locator,index:number){
-    await locator.selectOption({ index });
-}
+    async selectdropdownbyindex(locator: Locator, index: number) {
+        await locator.selectOption({ index });
+    }
 
-async reload(){
-    await this.page.reload();
-}
+    async reload() {
+        await this.page.reload();
+    }
 
 }

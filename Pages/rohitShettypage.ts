@@ -1,12 +1,17 @@
 import { expect, Page } from "@playwright/test";
+import Actions from "../Utilities/Actions";  
 
 export default class RohitShetty {
     private readonly page: Page;
+    private readonly actions:Actions;
 
     Radio1 = "input[value='radio1']"
     Radio2 = "input[value='radio2']"
     Radio3 = "input[value='radio3']"
+
     selectcountry = "#autocomplete:nth-of-type(1)";
+
+    selectdropdown ="//select[@id='dropdown-class-example']";
 
      //we can use public page:Page also
     constructor(page: Page) {
@@ -36,6 +41,14 @@ export default class RohitShetty {
             await middleradio.check();
             console.log('Now the middle radio button is selected');
         }
+    }
+    async dropdown(label:string, text:string,index:number){
+        let dropdown =this.page.locator(this.selectdropdown);
+        await this.actions.clickonelement(dropdown);
+        await this.actions.selectdropdownbytext(dropdown,text);
+        await this.actions.selectdropdownbyvalue(dropdown,label);
+        await this.actions.selectdropdownbyindex(dropdown,index);
+        console.log('all dropdows are checked');
     }
 
 

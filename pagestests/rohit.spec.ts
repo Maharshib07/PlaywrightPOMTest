@@ -42,3 +42,16 @@ test('Dropdown Example', async ({ page }) => {
     await rohitshetty.dropdown('Option2','Option1',3);
 
 });
+test ('Mouse Hover Example',async({page})=>{
+    const rohitshetty = new RohitShetty(page);
+    await rohitshetty.navig()
+    await rohitshetty.Hover()
+    
+})
+test ('Checkbox example',async({page})=>{
+    let rohitshetty = new RohitShetty(page);
+    await rohitshetty.navig()
+    await rohitshetty.CheckBox()
+
+})
+

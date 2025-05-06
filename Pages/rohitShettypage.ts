@@ -1,7 +1,7 @@
 import { expect, Locator, Page } from "@playwright/test";
 import Actions from "../Utilities/Actions";
 
-export default class RohitShetty {
+export default class RohitShettyPage {
     private readonly page: Page;
     private readonly actions: Actions;
 
@@ -22,8 +22,8 @@ export default class RohitShetty {
 
 
     //we can use public page:Page also
-    constructor(page: Page) {
-        this.page = page;
+    constructor(pageFromOutside: Page) {
+        this.page = pageFromOutside;
         this.actions = new Actions(this.page);
         this.chechkbox1 = this.page.locator('#checkBoxOption1');
         this.chechkbox2 = this.page.locator('#checkBoxOption2');
@@ -45,9 +45,11 @@ export default class RohitShetty {
     async entercountryname(countryname: string) {
         await this.page.locator(this.selectcountry).fill(countryname);
         await this.page.waitForTimeout(2000);
-        await expect(this.page.getByText('Bharat')).toBeVisible();
-        await this.page.locator(this.selectcountry).fill('');
-        //await expect(this.page.getByText('')).toBeNull();
+        
+        await expect(this.page.getByText('India').first()).toBeVisible();
+        await this.page.locator(this.selectcountry).clear() //fill('');
+        //await expect(this.page.getByText('India')).toBeNull();
+        
     }
     async Radiochecks() {
         await this.page.locator(this.Radio1).check();
@@ -78,6 +80,7 @@ export default class RohitShetty {
         if (await check2.isChecked()==false){
            await check2.check()
         }
+        console.log('All options are checked')
     }
 
 

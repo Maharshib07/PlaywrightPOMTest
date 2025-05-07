@@ -2,6 +2,7 @@ import { test, expect, Locator } from "@playwright/test";
 import { webkit, chromium, firefox } from 'playwright';
 
 import RohitShettyPage from "../Pages/RohitShettyPage";
+import { rootCertificates } from "tls";
 
 //import Actions from "../Utilities/Actions";
   
@@ -53,6 +54,14 @@ test ('Checkbox example',async({page})=>{
     let rohitshetty = new RohitShettyPage(page);
     await rohitshetty.navig()
     await rohitshetty.CheckBox()
+
+})
+test ('Switch Window Example',async({page})=>{
+    const browser = await chromium.launch({headless: false, channel: 'chrome',slowMo:800});
+    
+    let rspage = new RohitShettyPage(page)
+    await rspage.navig()
+    await rspage.Switchwindow()
 
 })
 

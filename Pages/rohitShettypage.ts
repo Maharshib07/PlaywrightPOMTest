@@ -1,5 +1,6 @@
-import { expect, Locator, Page } from "@playwright/test";
+import { expect, Locator, Page, Browser } from "@playwright/test";
 import Actions from "../Utilities/Actions";
+import { url } from "inspector";
 
 export default class RohitShettyPage {
     private readonly page: Page;
@@ -18,6 +19,10 @@ export default class RohitShettyPage {
     private readonly chechkbox1:Locator;
     private readonly chechkbox2:Locator
     private readonly chechkbox3:Locator
+    private readonly switchwindow:Locator
+    private readonly homelink:Locator
+    
+    private readonly courseslink:Locator
 
 
 
@@ -28,6 +33,10 @@ export default class RohitShettyPage {
         this.chechkbox1 = this.page.locator('#checkBoxOption1');
         this.chechkbox2 = this.page.locator('#checkBoxOption2');
         this.chechkbox3 = this.page.locator('#checkBoxOption3');
+        this.switchwindow = this.page.getByText('Open Window')
+        this.homelink = this.page.getByText('Home').first()
+        
+        this.courseslink = this.page.locator("//li[@class='nav-item']//following-sibling::li//a[text()='Courses']")
 
     }
     
@@ -81,6 +90,16 @@ export default class RohitShettyPage {
            await check2.check()
         }
         console.log('All options are checked')
+    }
+    async Switchwindow()
+    {
+        let page1Promise = this.page.waitForEvent('popup')
+        await this.switchwindow.click()
+        const page1 = await page1Promise
+        await expect(page1.getByText('Access all our Courses')).toBeVisible()
+        //await this.actions.clickonelement(this.courseslink)     
+       // await expect(page1.getByText('QA Click Academy')).toBeVisible()
+        
     }
 
 

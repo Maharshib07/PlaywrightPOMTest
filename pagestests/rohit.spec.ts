@@ -1,7 +1,9 @@
 import { test, expect, Locator } from "@playwright/test";
 import { webkit, chromium, firefox } from 'playwright';
 
-import RohitShetty from "../Pages/RohitShettypage";
+import RohitShettyPage from "../Pages/RohitShettyPage";
+import { rootCertificates } from "tls";
+
 //import Actions from "../Utilities/Actions";
   
 //    const browser = await chromium.launch({headless: false, channel: 'chrome',slowMo:900});
@@ -13,17 +15,17 @@ test('Suggession Class Example', async ({ page }) => {
 
     const browser = await chromium.launch({headless: false, channel: 'chrome',slowMo:800});
     const newPage = await browser.newPage();
-    const rohitshetty = new RohitShetty(newPage);
+    const rsPage = new RohitShettyPage(newPage);
 
     const rohitshettypageurl = "https://rahulshettyacademy.com/AutomationPractice/";
     //await rohitshetty.navigate("https://rahulshettyacademy.com/AutomationPractice/"); // for onetime use
-    await rohitshetty.navigate(rohitshettypageurl);
-    await rohitshetty.entercountryname('Bharat');
+    await rsPage.navigate(rohitshettypageurl);
+    await rsPage.entercountryname('India');
 });
 test ('Radio Button Example', async ({page})=>{
     const browser = await chromium.launch({headless: false, channel: 'chrome',slowMo:800});
     const newPage = await browser.newPage();
-    const rohitshetty = new RohitShetty(newPage);
+    const rohitshetty = new RohitShettyPage(newPage);
 
     const rohitshettypageurl = "https://rahulshettyacademy.com/AutomationPractice/";
 
@@ -36,22 +38,30 @@ test('Dropdown Example', async ({ page }) => {
    
     const browser = await chromium.launch({headless: false, channel: 'chrome',slowMo:800});
     const newPage = await browser.newPage();
-    const rohitshetty = new RohitShetty(newPage);
+    const rohitshetty = new RohitShettyPage(newPage);
 
     await rohitshetty.navig();
     await rohitshetty.dropdown('Option2','Option1',3);
 
 });
 test ('Mouse Hover Example',async({page})=>{
-    const rohitshetty = new RohitShetty(page);
+    const rohitshetty = new RohitShettyPage(page);
     await rohitshetty.navig()
     await rohitshetty.Hover()
     
 })
 test ('Checkbox example',async({page})=>{
-    let rohitshetty = new RohitShetty(page);
+    let rohitshetty = new RohitShettyPage(page);
     await rohitshetty.navig()
     await rohitshetty.CheckBox()
+
+})
+test ('Switch Window Example',async({page})=>{
+    const browser = await chromium.launch({headless: false, channel: 'chrome',slowMo:800});
+    
+    let rspage = new RohitShettyPage(page)
+    await rspage.navig()
+    await rspage.Switchwindow()
 
 })
 

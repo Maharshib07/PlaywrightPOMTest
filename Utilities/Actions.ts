@@ -14,6 +14,7 @@ export default class Actions {
 
     async clickonelement(locator: Locator) {
         await locator.click();
+        
     }
 
     async doubleclick(locator: Locator) {

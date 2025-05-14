@@ -1,7 +1,8 @@
-import { expect, Locator, Page } from "@playwright/test";
+import { expect, Locator, Page, Browser } from "@playwright/test";
 import Actions from "../Utilities/Actions";
+import { url } from "inspector";
 
-export default class RohitShetty {
+export default class RohitShettyPage {
     private readonly page: Page;
     private readonly actions: Actions;
 
@@ -18,16 +19,24 @@ export default class RohitShetty {
     private readonly chechkbox1:Locator;
     private readonly chechkbox2:Locator
     private readonly chechkbox3:Locator
+    private readonly switchwindow:Locator
+    private readonly homelink:Locator
+    
+    private readonly courseslink:Locator
 
 
 
     //we can use public page:Page also
-    constructor(page: Page) {
-        this.page = page;
+    constructor(pageFromOutside: Page) {
+        this.page = pageFromOutside;
         this.actions = new Actions(this.page);
         this.chechkbox1 = this.page.locator('#checkBoxOption1');
         this.chechkbox2 = this.page.locator('#checkBoxOption2');
         this.chechkbox3 = this.page.locator('#checkBoxOption3');
+        this.switchwindow = this.page.getByText('Open Window')
+        this.homelink = this.page.getByText('Home').first()
+        
+        this.courseslink = this.page.locator("//li[@class='nav-item']//following-sibling::li//a[text()='Courses']")
 
     }
     
@@ -45,9 +54,11 @@ export default class RohitShetty {
     async entercountryname(countryname: string) {
         await this.page.locator(this.selectcountry).fill(countryname);
         await this.page.waitForTimeout(2000);
-        await expect(this.page.getByText('Bharat')).toBeVisible();
-        await this.page.locator(this.selectcountry).fill('');
-        //await expect(this.page.getByText('')).toBeNull();
+        
+        await expect(this.page.getByText('India').first()).toBeVisible();
+        await this.page.locator(this.selectcountry).clear() //fill('');
+        //await expect(this.page.getByText('India')).toBeNull();
+        
     }
     async Radiochecks() {
         await this.page.locator(this.Radio1).check();
@@ -78,6 +89,17 @@ export default class RohitShetty {
         if (await check2.isChecked()==false){
            await check2.check()
         }
+        console.log('All options are checked')
+    }
+    async Switchwindow()
+    {
+        let page1Promise = this.page.waitForEvent('popup')
+        await this.switchwindow.click()
+        const page1 = await page1Promise
+        await expect(page1.getByText('Access all our Courses')).toBeVisible()
+        //await this.actions.clickonelement(this.courseslink)     
+       // await expect(page1.getByText('QA Click Academy')).toBeVisible()
+        
     }
 
 

@@ -1,10 +1,10 @@
-import { expect, Locator, Page, Browser } from "@playwright/test";
+import { expect, Locator, Page, Browser} from "@playwright/test";
 import Actions from "../Utilities/Actions";
-import { url } from "inspector";
 
 export default class RohitShettyPage {
     private readonly page: Page;
     private readonly actions: Actions;
+
 
     private readonly Radio1 = "input[value='radio1']"
     private readonly Radio2 = "input[value='radio2']"
@@ -21,8 +21,14 @@ export default class RohitShettyPage {
     private readonly chechkbox3:Locator
     private readonly switchwindow:Locator
     private readonly homelink:Locator
+    private readonly showmorebtn:Locator
     
     private readonly courseslink:Locator
+    private readonly enteralrtname:Locator
+    private readonly alertbtn:Locator
+    private readonly alrtOK:Locator
+    private readonly alrtconfirmbtn:Locator  
+
 
 
 
@@ -35,8 +41,14 @@ export default class RohitShettyPage {
         this.chechkbox3 = this.page.locator('#checkBoxOption3');
         this.switchwindow = this.page.getByText('Open Window')
         this.homelink = this.page.getByText('Home').first()
+        this.showmorebtn= this.page.locator("//button[@aria-label='Show more']")
         
         this.courseslink = this.page.locator("//li[@class='nav-item']//following-sibling::li//a[text()='Courses']")
+        this.enteralrtname = this.page.locator("input#name")
+        this.alertbtn = this.page.locator("input#alertbtn")
+        this.alrtconfirmbtn=this.page.locator("input#confirmbtn")
+
+
 
     }
     
@@ -93,13 +105,33 @@ export default class RohitShettyPage {
     }
     async Switchwindow()
     {
-        let page1Promise = this.page.waitForEvent('popup')
-        await this.switchwindow.click()
-        const page1 = await page1Promise
-        await expect(page1.getByText('Access all our Courses')).toBeVisible()
-        //await this.actions.clickonelement(this.courseslink)     
-       // await expect(page1.getByText('QA Click Academy')).toBeVisible()
         
+        await this.switchwindow.click()
+        const [page] = await Promise.all([
+    this.page.waitForEvent('popup'),
+    await this.switchwindow.click()// Opens product in a new tab
+  ]);
+
+  // Step 4: Wait for new tab to load
+        await page.waitForLoadState('domcontentloaded');
+        await expect(page).toHaveURL("https://www.qaclickacademy.com/")
+        const coursesLink = page.locator("//li[@class='nav-item']//following-sibling::li//a[text()='Courses']");
+        await coursesLink.click();
+        await expect(page.getByText('QA Click Academy')).toBeVisible()
+        //await this.actions.clickonelement(this.showmorebtn)
+        await this.showmorebtn.click()
+        
+    }
+    async alertbox()
+    {
+        await this.enteralrtname.fill("Rishi")
+        this.page.once('dialog', async (alrt) => {
+            let alrttext = await alrt.defaultValue()
+            console.log(alrttext)
+            await alrt.accept();
+        });
+        await this.alertbtn.click()
+        await this.alrtconfirmbtn.click()
     }
 
 

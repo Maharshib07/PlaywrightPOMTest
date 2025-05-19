@@ -27,6 +27,7 @@ export default class Actions {
 
     async typetext(locator: Locator, text: string) {
         await locator.fill(text);
+    
     }
 
     async cleartext(locator: Locator) {

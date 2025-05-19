@@ -13,7 +13,7 @@ import RohitShettyPage from "../Pages/RohitShettypage";
     //const rohitshettypageurl = "https://rahulshettyacademy.com/AutomationPractice/";
 test('Suggession Class Example', async ({ page }) => {
 
-    const browser = await chromium.launch({headless: false, channel: 'chrome',slowMo:800});
+    const browser = await chromium.launch({headless: true, channel: 'chrome', slowMo:800});
     const newPage = await browser.newPage();
     const rsPage = new RohitShettyPage(newPage);
 
@@ -23,7 +23,7 @@ test('Suggession Class Example', async ({ page }) => {
     await rsPage.entercountryname('India');
 });
 test ('Radio Button Example', async ({page})=>{
-    const browser = await chromium.launch({headless: false, channel: 'chrome',slowMo:800});
+    const browser = await chromium.launch({headless: true, channel: 'chrome', slowMo:800});
     const newPage = await browser.newPage();
     const rohitshetty = new RohitShettyPage(newPage);
 
@@ -35,7 +35,7 @@ test ('Radio Button Example', async ({page})=>{
 });
 test('Dropdown Example', async ({ page }) => {
    
-    const browser = await chromium.launch({headless: false, channel: 'chrome',slowMo:800});
+    const browser = await chromium.launch({headless: true, channel: 'chrome', slowMo:800});
     const newPage = await browser.newPage();
     const rohitshetty = new RohitShettyPage(newPage);
 
@@ -57,7 +57,7 @@ test ('Checkbox example',async({page})=>{
 
 })
 test ('Switch Window Example',async({page})=>{
-    const browser = await chromium.launch({headless: false, channel: 'chrome',slowMo:800});
+    const browser = await chromium.launch({headless: true, channel: 'chrome', slowMo:800});
     
     let rspage = new RohitShettyPage(page)
     await rspage.navig()
@@ -65,7 +65,7 @@ test ('Switch Window Example',async({page})=>{
 
 })
 test ("Alert handling", async({page})=>{
-    const browser = await chromium.launch({slowMo:800, headless: false})
+    const browser = await chromium.launch({slowMo:800, headless: true})
     let newpage = await browser.newPage()
     const rspage = new RohitShettyPage(newpage)
 

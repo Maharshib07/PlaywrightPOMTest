@@ -2,7 +2,9 @@ import { expect, Locator, Page, Browser} from "@playwright/test";
 import Actions from "../Utilities/Actions";
 
 export default class RohitShettyPage {
-    private readonly page: Page;
+    private readonly page : Page;
+    private readonly newpage : Page;
+   
     private readonly actions: Actions;
 
 
@@ -35,7 +37,9 @@ export default class RohitShettyPage {
     //we can use public page:Page also
     constructor(pageFromOutside: Page) {
         this.page = pageFromOutside;
+        this.newpage = pageFromOutside;
         this.actions = new Actions(this.page);
+        
         this.chechkbox1 = this.page.locator('#checkBoxOption1');
         this.chechkbox2 = this.page.locator('#checkBoxOption2');
         this.chechkbox3 = this.page.locator('#checkBoxOption3');
@@ -52,10 +56,6 @@ export default class RohitShettyPage {
 
     }
     
-
-
-
-
     async navigate(url: string) {
         await this.page.goto(url);
     }
@@ -107,17 +107,16 @@ export default class RohitShettyPage {
     {
         
         await this.switchwindow.click()
-        const [page] = await Promise.all([
+        const [newpage] = await Promise.all([
     this.page.waitForEvent('popup'),
-    await this.switchwindow.click()// Opens product in a new tab
+    await this.switchwindow.click()// Opens a new tab or a window
   ]);
 
-  // Step 4: Wait for new tab to load
-        await page.waitForLoadState('domcontentloaded');
-        await expect(page).toHaveURL("https://www.qaclickacademy.com/")
-        const coursesLink = page.locator("//li[@class='nav-item']//following-sibling::li//a[text()='Courses']");
+        await newpage.waitForLoadState('domcontentloaded');
+        await expect(newpage).toHaveURL("https://www.qaclickacademy.com/")
+        const coursesLink = newpage.locator("//li[@class='nav-item']//following-sibling::li//a[text()='Courses']");
         await coursesLink.click();
-        await expect(page.getByText('QA Click Academy')).toBeVisible()
+        await expect(newpage.getByText('QA Click Academy')).toBeVisible()
         //await this.actions.clickonelement(this.showmorebtn)
         await this.showmorebtn.click()
         

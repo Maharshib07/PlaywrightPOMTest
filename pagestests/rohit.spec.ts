@@ -1,8 +1,8 @@
 import { test, expect, Locator } from "@playwright/test";
 import { webkit, chromium, firefox } from 'playwright';
 
-import RohitShettyPage from "../Pages/RohitShettyPage";
-import { rootCertificates } from "tls";
+import RohitShettyPage from "../Pages/RohitShettypage";
+
 
 //import Actions from "../Utilities/Actions";
   
@@ -33,7 +33,6 @@ test ('Radio Button Example', async ({page})=>{
     await rohitshetty.Radiochecks();
     
 });
-
 test('Dropdown Example', async ({ page }) => {
    
     const browser = await chromium.launch({headless: false, channel: 'chrome',slowMo:800});
@@ -45,6 +44,7 @@ test('Dropdown Example', async ({ page }) => {
 
 });
 test ('Mouse Hover Example',async({page})=>{
+   
     const rohitshetty = new RohitShettyPage(page);
     await rohitshetty.navig()
     await rohitshetty.Hover()
@@ -64,4 +64,11 @@ test ('Switch Window Example',async({page})=>{
     await rspage.Switchwindow()
 
 })
+test ("Alert handling", async({page})=>{
+    const browser = await chromium.launch({slowMo:800, headless: false})
+    let newpage = await browser.newPage()
+    const rspage = new RohitShettyPage(newpage)
 
+    await rspage.navig()
+    await rspage.alertbox()
+})

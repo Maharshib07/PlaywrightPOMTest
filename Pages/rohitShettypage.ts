@@ -3,8 +3,6 @@ import Actions from "../Utilities/Actions";
 
 export default class RohitShettyPage {
     private readonly page : Page;
-    private readonly newpage : Page;
-   
     private readonly actions: Actions;
 
 
@@ -37,7 +35,7 @@ export default class RohitShettyPage {
     //we can use public page:Page also
     constructor(pageFromOutside: Page) {
         this.page = pageFromOutside;
-        this.newpage = pageFromOutside;
+       
         this.actions = new Actions(this.page);
         
         this.chechkbox1 = this.page.locator('#checkBoxOption1');
